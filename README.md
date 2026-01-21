@@ -1,5 +1,7 @@
 # Vibe Ship Small
 
+> **Version**: 0.1.0
+
 A team collaboration guide for AI-assisted development that prevents massive PRs through structured planning.
 
 ## The Problem
@@ -236,7 +238,8 @@ vibe-ship-small/
 │   └── pull-request-template.md       # PR template for GitHub
 ├── examples/
 │   ├── prd-chatbot-workflows.md       # Complete PRD example
-│   └── spec-chatbot-workflows.md      # Complete spec example
+│   ├── spec-chatbot-workflows.md      # Complete spec example
+│   └── pr-example-chatbot-workflows.md # PR examples with task references
 └── research/
     ├── Agent Communication Tools for Code.md
     ├── AI Planning and Architecture Prompt Search.md
