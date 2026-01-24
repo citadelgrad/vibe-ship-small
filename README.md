@@ -1,6 +1,6 @@
 # Vibe Ship Small
 
-> **Version**: 0.1.0
+> **Version**: 0.2.0
 
 A team collaboration guide for AI-assisted development that prevents massive PRs through structured planning.
 
@@ -13,19 +13,81 @@ When teams use AI agents (Claude Code, Cursor, Cline, Bolt) for "vibe coding," t
 - **Merge conflicts** - Big PRs sit open longer, increasing conflict risk
 - **Knowledge silos** - Reviewers skim instead of understanding
 
-## The Solution
+## Two Solutions for Managing AI-Generated PRs
 
-**Ship small, even when vibe coding.**
+When using AI agents for development, you need a strategy to prevent massive, unreviewable PRs. This repo presents two complementary approaches:
 
-This repo provides a structured workflow that decomposes features *before* agents start coding, ensuring each PR stays in the 200-400 line sweet spot.
+- **Choose Solution 1 (Spec Kit)** if you want automated guardrails built into your AI coding workflow.
+- **Choose Solution 2 (Manual Templates)** if you prefer human-driven planning with more explicit control.
+
+Both solutions aim for the same outcome: **small, reviewable PRs in the 200-400 line range.**
+
+### Comparison: Which Solution Should You Choose?
+
+| Aspect | Solution 1: Spec Kit | Solution 2: Manual Templates |
+|--------|---------------------|------------------------------|
+| **Approach** | Automated spec-driven development with slash commands | Human-driven planning with templates and documentation |
+| **Setup Complexity** | Medium - requires CLI installation and project initialization | Low - copy templates and start using |
+| **Automation Level** | High - AI agent executes commands that generate specs, plans, and tasks | Low - humans write PRDs, specs, and create tickets manually |
+| **Best For** | Teams using AI agents extensively; greenfield projects; developers wanting guardrails built into tooling | Teams preferring manual control; existing projects; organizations with established planning processes |
+| **Pros** | - Automated task generation<br>- Built-in workflow guardrails<br>- Consistent structure across projects<br>- Works with multiple AI agents | - Full human control over planning<br>- No external dependencies<br>- Easy to customize for your team<br>- Familiar documentation-based workflow |
+| **Cons** | - Requires tooling setup<br>- Learning curve for commands<br>- May feel opinionated | - More manual effort required<br>- Relies on team discipline<br>- No automated enforcement |
+| **Learning Curve** | Moderate - need to learn slash commands and workflow | Low - familiar documentation and planning process |
+
+---
+
+### Solution 1: Spec Kit (Automated Spec-Driven Development)
+
+**[Spec Kit](https://github.com/github/spec-kit)** is GitHub's open-source toolkit that automates the spec-to-code workflow using AI agent commands.
+
+**What it does:**
+- Provides slash commands (`/speckit.specify`, `/speckit.plan`, `/speckit.tasks`, `/speckit.implement`) that guide AI agents through structured development
+- Automatically generates specifications, technical plans, and task breakdowns from natural language requirements
+- Executes implementations in a controlled, step-by-step manner
+- Works with Claude Code, Cursor, Copilot, Windsurf, and other AI coding agents
+
+**Quick start:**
+
+```bash
+# Install Spec Kit
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git
+
+# Initialize your project
+specify init my-project --ai claude
+
+# In your AI agent, use these commands:
+/speckit.constitution  # Define project principles
+/speckit.specify       # Describe what to build (requirements)
+/speckit.plan          # Define tech stack and architecture
+/speckit.tasks         # Generate task breakdown
+/speckit.implement     # Execute tasks systematically
+```
+
+**Best for:**
+- Teams already using AI coding agents extensively
+- Projects where AI agents do most of the implementation work
+- Greenfield projects where you can establish the workflow from day one
+- Developers who want automation and guardrails built into their AI tooling
+
+**Demo:** See it in action at [citadelgrad/restart-heroku](https://github.com/citadelgrad/restart-heroku)
+
+**Learn more:** [Spec Kit Documentation](https://github.github.io/spec-kit/)
+
+---
+
+### Solution 2: Manual PRD/Spec Workflow (Template-Based Planning)
+
+**A human-driven process using templates and documentation to plan before coding.**
+
+This approach provides templates and structured workflows for teams who prefer more manual control over the planning process.
 
 ```
 PRD (What/Why) → Spec (How) → Task Breakdown → Small PRs
 ```
 
----
+**Learn about visual diagrams:** See [Visuals & Diagrams Guide](docs/visuals-and-diagrams.md) to understand how C4 diagrams and task graphs help decompose features and communicate architecture.
 
-## Quick Start
+## Quick Start (Solution 2)
 
 ### For Ticket Creation (Planning)
 
@@ -51,7 +113,7 @@ PRD (What/Why) → Spec (How) → Task Breakdown → Small PRs
 
 ---
 
-## Workflow Overview
+## Workflow Overview (Solution 2)
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
@@ -88,7 +150,7 @@ PRD (What/Why) → Spec (How) → Task Breakdown → Small PRs
 
 ---
 
-## Example: Ticket Planning
+## Example: Ticket Planning (Solution 2)
 
 Let's walk through planning a "Custom Chatbot Workflows" feature.
 
@@ -177,7 +239,7 @@ Epic: Custom Chatbot Workflows
 
 ---
 
-## Example: PR Review Planning
+## Example: PR Review Planning (Solution 2)
 
 When a PR comes in for task T5 (CRUD APIs), the reviewer should:
 
@@ -232,6 +294,9 @@ Implements CRUD endpoints for workflow management.
 vibe-ship-small/
 ├── README.md                          # This file
 ├── TEAM-WORKFLOW-STANDARD.md          # Full process documentation
+├── docs/
+│   ├── visuals-and-diagrams.md        # Guide to C4 diagrams, task graphs, and LLM diagram generation
+│   └── architecture-tools.md          # Alternative architecture tools reference
 ├── templates/
 │   ├── prd-template.md                # PRD template
 │   ├── spec-template.md               # Technical spec template
